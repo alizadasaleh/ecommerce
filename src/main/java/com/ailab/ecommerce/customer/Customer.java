@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Customer extends BaseEntity<Long>{
+
 
     @Column(length = 255, nullable = false)
     private String name;

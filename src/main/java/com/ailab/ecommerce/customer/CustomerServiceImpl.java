@@ -33,19 +33,29 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public CustomerResponseDto createCustomer(CustomerRequestCreateDto customerRequestCreateDto) {
-        var existingCustomer = customerRepository.findByEmail(customerRequestCreateDto.getEmail());
+    public CustomerResponseDto createCustomer(CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
+        var existingCustomer = customerRepository.findByEmail(createUpdateCustomerRequestDto.getEmail());
         if (existingCustomer.isPresent()) {
             throw new CustomerAlreadyExists("Customer with the given email already exists.");
         }
-        return customerMapper.toResponseDto(customerRepository.save(customerMapper.toEntity(customerRequestCreateDto)));
+        return customerMapper.toResponseDto(customerRepository.save(customerMapper.toEntity(createUpdateCustomerRequestDto)));
     }
-
-
 
     @Override
     public void deleteCustomer(long id) {
 
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public CustomerResponseDto updateCustomer(Long id, CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
+        var existingCustomer = customerRepository.findById(id);
+        if (existingCustomer.isPresent()) {
+            existingCustomer.get().setEmail(createUpdateCustomerRequestDto.getEmail());
+            existingCustomer.get().setName(createUpdateCustomerRequestDto.getName());
+            existingCustomer.get().setAddress(createUpdateCustomerRequestDto.getAddress());
+            return customerMapper.toResponseDto(customerRepository.save(existingCustomer.get()));
+        }
+        throw new CustomerNotFound("Customer with the given id does not exist.");
     }
 }
