@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class CreateUpdateCustomerRequestDto {
+public class CustomerRequestDto {
 
     @NotBlank(message = "Invalid Name: Empty name")
     @NotNull(message = "Invalid Name: Name is NULL")

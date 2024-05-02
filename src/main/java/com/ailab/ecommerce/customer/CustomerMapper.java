@@ -12,7 +12,7 @@ public interface CustomerMapper {
     @Mapping(target = "customer", ignore = true)
     OrderResponseDto orderToOrderResponseDto(Order order);
     CustomerResponseDto toResponseDto(Customer customer);
-    Customer toEntity(CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto);
+    Customer toEntity(CustomerRequestDto customerRequestDto);
     List<OrderResponseDto> ordersToOrderResponseDtos(List<Order> orders);
 
 

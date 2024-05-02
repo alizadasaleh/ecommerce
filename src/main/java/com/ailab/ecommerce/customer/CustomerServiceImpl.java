@@ -33,12 +33,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public CustomerResponseDto createCustomer(CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
-        var existingCustomer = customerRepository.findByEmail(createUpdateCustomerRequestDto.getEmail());
+    public CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto) {
+        var existingCustomer = customerRepository.findByEmail(customerRequestDto.getEmail());
         if (existingCustomer.isPresent()) {
             throw new CustomerAlreadyExists("Customer with the given email already exists.");
         }
-        return customerMapper.toResponseDto(customerRepository.save(customerMapper.toEntity(createUpdateCustomerRequestDto)));
+        return customerMapper.toResponseDto(customerRepository.save(customerMapper.toEntity(customerRequestDto)));
     }
 
     @Override
@@ -48,12 +48,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponseDto updateCustomer(Long id, CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
+    public CustomerResponseDto updateCustomer(Long id, CustomerRequestDto customerRequestDto) {
         var existingCustomer = customerRepository.findById(id);
         if (existingCustomer.isPresent()) {
-            existingCustomer.get().setEmail(createUpdateCustomerRequestDto.getEmail());
-            existingCustomer.get().setName(createUpdateCustomerRequestDto.getName());
-            existingCustomer.get().setAddress(createUpdateCustomerRequestDto.getAddress());
+            existingCustomer.get().setEmail(customerRequestDto.getEmail());
+            existingCustomer.get().setName(customerRequestDto.getName());
+            existingCustomer.get().setAddress(customerRequestDto.getAddress());
             return customerMapper.toResponseDto(customerRepository.save(existingCustomer.get()));
         }
         throw new CustomerNotFound("Customer with the given id does not exist.");

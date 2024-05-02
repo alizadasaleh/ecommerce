@@ -26,13 +26,13 @@ public class CustomerController {
     }
 
     @PostMapping
-    public CustomerResponseDto createCustomer(@RequestBody @Valid CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
-        return customerService.createCustomer(createUpdateCustomerRequestDto);
+    public CustomerResponseDto createCustomer(@RequestBody @Valid CustomerRequestDto customerRequestDto) {
+        return customerService.createCustomer(customerRequestDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable("id") Long id,@RequestBody @Valid CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
-        return ResponseEntity.ok(customerService.updateCustomer(id, createUpdateCustomerRequestDto));
+    public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable("id") Long id,@RequestBody @Valid CustomerRequestDto customerRequestDto) {
+        return ResponseEntity.ok(customerService.updateCustomer(id, customerRequestDto));
     }
 
     @DeleteMapping("/{id}")
