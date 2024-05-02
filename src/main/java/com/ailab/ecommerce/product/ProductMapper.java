@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 public interface ProductMapper {
 
     ProductResponseDto toResponseDto(Product product);
-    ProductRequestCreateDto toRequestCreateDto(Product product);
-    Product toEntity(ProductRequestCreateDto productRequestCreateDto);
+    ProductRequestDto toRequestCreateDto(Product product);
+    Product toEntity(ProductRequestDto productRequestDto);
 }

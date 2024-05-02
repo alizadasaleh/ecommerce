@@ -1,5 +1,7 @@
 package com.ailab.ecommerce.product;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 public interface ProductService {
@@ -7,7 +9,10 @@ public interface ProductService {
 
     ProductResponseDto getProductById(long id);
 
-    ProductResponseDto createProduct(ProductRequestCreateDto productRequestCreateDto);
+    @Transactional
+    ProductResponseDto updateProduct(Long productId, ProductRequestDto productRequestDto);
+
+    ProductResponseDto createProduct(ProductRequestDto productRequestDto);
 
     void deleteProduct(long id);
 

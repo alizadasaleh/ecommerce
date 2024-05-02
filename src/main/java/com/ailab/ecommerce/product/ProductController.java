@@ -1,5 +1,6 @@
 package com.ailab.ecommerce.product;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,10 +25,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponseDto createProduct(@RequestBody ProductRequestCreateDto productRequestCreateDto) {
-        return productService.createProduct(productRequestCreateDto);
+    public ProductResponseDto createProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
+        return productService.createProduct(productRequestDto);
     }
-
+    @PutMapping("/{id}")
+    public ProductResponseDto updateProduct(@PathVariable("id") Long id,@RequestBody @Valid ProductRequestDto productRequestDto) {
+        return productService.updateProduct(id, productRequestDto);
+    }
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProduct(id);

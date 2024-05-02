@@ -33,12 +33,26 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductResponseDto createProduct(ProductRequestCreateDto productRequestCreateDto) {
-        var existingProduct = productRepository.findByName(productRequestCreateDto.getName());
+    public ProductResponseDto updateProduct(Long productId, ProductRequestDto productRequestDto){
+        Product existingProduct = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFound("Product not found"));
+
+        existingProduct.setName(productRequestDto.getName());
+        existingProduct.setPrice(productRequestDto.getPrice());
+
+        Product updatedProduct = productRepository.save(existingProduct);
+
+        return productMapper.toResponseDto(updatedProduct);
+    }
+
+    @Override
+    @Transactional
+    public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
+        var existingProduct = productRepository.findByName(productRequestDto.getName());
         if (existingProduct.isPresent()) {
             throw new ProductAlreadyExists("Product with this name already exists");
         }
-        return productMapper.toResponseDto(productRepository.save(productMapper.toEntity(productRequestCreateDto)));
+        return productMapper.toResponseDto(productRepository.save(productMapper.toEntity(productRequestDto)));
     }
 
 

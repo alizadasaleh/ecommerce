@@ -49,13 +49,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerResponseDto updateCustomer(Long id, CustomerRequestDto customerRequestDto) {
-        var existingCustomer = customerRepository.findById(id);
-        if (existingCustomer.isPresent()) {
-            existingCustomer.get().setEmail(customerRequestDto.getEmail());
-            existingCustomer.get().setName(customerRequestDto.getName());
-            existingCustomer.get().setAddress(customerRequestDto.getAddress());
-            return customerMapper.toResponseDto(customerRepository.save(existingCustomer.get()));
-        }
-        throw new CustomerNotFound("Customer with the given id does not exist.");
+        var existingCustomer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFound("Customer not found with the given ID."));
+        existingCustomer.setEmail(customerRequestDto.getEmail());
+        existingCustomer.setName(customerRequestDto.getName());
+        existingCustomer.setAddress(customerRequestDto.getAddress());
+        return customerMapper.toResponseDto(customerRepository.save(existingCustomer));
+
     }
 }
