@@ -22,7 +22,6 @@ public class Customer extends BaseEntity<Long>{
     private String name;
 
     @Column(nullable = false, unique = true)
-    @Email
     private String email;
 
     @Column(nullable = false)

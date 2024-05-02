@@ -1,5 +1,6 @@
 package com.ailab.ecommerce.customer;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,12 @@ public class CustomerController {
     }
 
     @PostMapping
-    public CustomerResponseDto createCustomer(@RequestBody CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
+    public CustomerResponseDto createCustomer(@RequestBody @Valid CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
         return customerService.createCustomer(createUpdateCustomerRequestDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable("id") Long id,@RequestBody CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
+    public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable("id") Long id,@RequestBody @Valid CreateUpdateCustomerRequestDto createUpdateCustomerRequestDto) {
         return ResponseEntity.ok(customerService.updateCustomer(id, createUpdateCustomerRequestDto));
     }
 
