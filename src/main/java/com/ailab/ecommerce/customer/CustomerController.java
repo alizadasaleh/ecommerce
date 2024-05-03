@@ -10,7 +10,6 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerController {
     private final CustomerService customerService;
-
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
@@ -39,6 +38,7 @@ public class CustomerController {
     public void deleteCustomer(@PathVariable("id") Long id) {
         customerService.deleteCustomer(id);
     }
+
 
 
 }

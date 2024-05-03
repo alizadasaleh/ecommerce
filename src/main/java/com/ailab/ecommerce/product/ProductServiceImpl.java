@@ -1,7 +1,6 @@
 package com.ailab.ecommerce.product;
 
-import com.ailab.ecommerce.exceptions.ProductAlreadyExists;
-import com.ailab.ecommerce.exceptions.ProductNotFound;
+import com.ailab.ecommerce.exceptions.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -27,15 +26,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDto getProductById(long id) {
-        return productMapper.toResponseDto(productRepository.findById(id).orElseThrow(() -> new ProductNotFound("Product Not Found")));
+    public ProductResponseDto getProductById(Long id) {
+        return productMapper.toResponseDto(productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product Not Found")));
     }
 
     @Override
     @Transactional
     public ProductResponseDto updateProduct(Long productId, ProductRequestDto productRequestDto){
         Product existingProduct = productRepository.findById(productId)
-                .orElseThrow(() -> new ProductNotFound("Product not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
 
         existingProduct.setName(productRequestDto.getName());
         existingProduct.setPrice(productRequestDto.getPrice());
@@ -48,17 +47,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
-        var existingProduct = productRepository.findByName(productRequestDto.getName());
-        if (existingProduct.isPresent()) {
-            throw new ProductAlreadyExists("Product with this name already exists");
-        }
         return productMapper.toResponseDto(productRepository.save(productMapper.toEntity(productRequestDto)));
     }
 
 
 
     @Override
-    public void deleteProduct(long id) {
-        productRepository.deleteById(id);
+    @Transactional
+    public void deleteProduct(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found to delete"));
+        productRepository.delete(product);
     }
 }

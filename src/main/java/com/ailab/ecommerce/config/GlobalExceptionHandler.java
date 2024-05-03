@@ -1,9 +1,6 @@
 package com.ailab.ecommerce.config;
 
-import com.ailab.ecommerce.exceptions.CustomerAlreadyExists;
-import com.ailab.ecommerce.exceptions.CustomerNotFound;
-import com.ailab.ecommerce.exceptions.ProductAlreadyExists;
-import com.ailab.ecommerce.exceptions.ProductNotFound;
+import com.ailab.ecommerce.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +16,6 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler({CustomerNotFound.class})
-    public ResponseEntity<Object> handleCustomerNotFoundException(CustomerNotFound exception) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(exception.getMessage());
-    }
 
 
     @ExceptionHandler({CustomerAlreadyExists.class})
@@ -55,15 +45,15 @@ public class GlobalExceptionHandler {
                 .body(exception.getMessage());
     }
 
-    @ExceptionHandler({ProductNotFound.class})
-    public ResponseEntity<Object> handleProductNotFoundException(ProductNotFound exception) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(exception.getMessage());
-    }
 
     @ExceptionHandler({ProductAlreadyExists.class})
     public ResponseEntity<Object> handleProductAlreadyExistsException(ProductAlreadyExists exception) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(exception.getMessage());
+    }
+    @ExceptionHandler({EntityNotFoundException.class})
+    public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException exception) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(exception.getMessage());

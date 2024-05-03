@@ -7,13 +7,13 @@ import java.util.List;
 public interface ProductService {
     List<ProductResponseDto> getAllProducts();
 
-    ProductResponseDto getProductById(long id);
+    ProductResponseDto getProductById(Long id);
 
     @Transactional
     ProductResponseDto updateProduct(Long productId, ProductRequestDto productRequestDto);
 
     ProductResponseDto createProduct(ProductRequestDto productRequestDto);
 
-    void deleteProduct(long id);
+    void deleteProduct(Long id);
 
 }
