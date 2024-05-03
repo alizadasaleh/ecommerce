@@ -40,4 +40,10 @@ public class OrderController {
     public void deleteOrder(@PathVariable("id") Long id){
         orderService.deleteOrder(id);
     }
+
+    @PutMapping("/orders/{id}")
+    public ResponseEntity<OrderResponseDto> updateOrder(@PathVariable("id") Long id,@RequestBody @Valid OrderRequestCreateDto orderRequestCreateDto){
+        return ResponseEntity.ok(orderService.updateOrder(id, orderRequestCreateDto));
+    }
+
 }

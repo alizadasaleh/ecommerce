@@ -41,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toResponseDto(order);
     }
 
+
     @Override
     @Transactional
     public void deleteOrder(Long orderId) {
@@ -77,7 +78,21 @@ public class OrderServiceImpl implements OrderService {
         return List.of();
     }
 
+    @Override
+    @Transactional
+    public OrderResponseDto updateOrder(Long id, OrderRequestCreateDto orderRequestCreateDto) {
+        Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Order.class,id));
+        Customer customer=customerRepository.findById(orderRequestCreateDto.getCustomerId())
+                .orElseThrow(() -> new EntityNotFoundException("Customer not found to create order"));
 
-
+        order.setCustomer(customer);
+        List<Product> products = productRepository.findAllById(orderRequestCreateDto.getProductIds());
+        if (products.isEmpty()) {
+            throw new EntityNotFoundException("Product not found to create order");
+        }
+        order.setProducts(products);
+        order = orderRepository.save(order);
+        return orderMapper.toResponseDto(order);
+    }
 
 }
