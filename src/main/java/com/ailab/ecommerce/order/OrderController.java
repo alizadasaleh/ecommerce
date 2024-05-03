@@ -31,9 +31,9 @@ public class OrderController {
         return ResponseEntity.ok(orderService.createOrder(orderRequestCreateDto));
     }
 
-    @GetMapping("/customers/{customer_id}/orders")
-    public ResponseEntity<List<OrderResponseDto>> getAllOrdersByCustomer(@PathVariable("customer_id") Long customer_id){
-        return  ResponseEntity.ok(orderService.getOrdersByCustomerId(customer_id));
+    @GetMapping("/customers/{customerId}/orders")
+    public ResponseEntity<List<OrderResponseDto>> getAllOrdersByCustomer(@PathVariable("customerId") Long customerId){
+        return  ResponseEntity.ok(orderService.getOrdersByCustomerId(customerId));
     }
 
     @DeleteMapping("/orders/{id}")
@@ -44,6 +44,10 @@ public class OrderController {
     @PutMapping("/orders/{id}")
     public ResponseEntity<OrderResponseDto> updateOrder(@PathVariable("id") Long id,@RequestBody @Valid OrderRequestCreateDto orderRequestCreateDto){
         return ResponseEntity.ok(orderService.updateOrder(id, orderRequestCreateDto));
+    }
+    @GetMapping("/products/{productId}/orders")
+    public ResponseEntity<List<OrderResponseDto>> getOrderByProductId(@PathVariable ("productId") Long productId){
+        return ResponseEntity.ok(orderService.getOrdersByProductId(productId));
     }
 
 }
