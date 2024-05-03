@@ -2,7 +2,7 @@ package com.ailab.ecommerce.order;
 
 import com.ailab.ecommerce.customer.Customer;
 import com.ailab.ecommerce.customer.CustomerRepository;
-import com.ailab.ecommerce.exceptions.EntityNotFoundException;
+import com.ailab.ecommerce.exception.EntityNotFoundException;
 import com.ailab.ecommerce.product.Product;
 import com.ailab.ecommerce.product.ProductRepository;
 import jakarta.transaction.Transactional;

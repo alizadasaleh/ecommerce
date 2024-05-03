@@ -1,6 +1,6 @@
 package com.ailab.ecommerce.config;
 
-import com.ailab.ecommerce.exceptions.*;
+import com.ailab.ecommerce.exception.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
