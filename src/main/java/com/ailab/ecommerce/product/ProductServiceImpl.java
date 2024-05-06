@@ -27,7 +27,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto getProductById(Long id) {
-        return productMapper.toResponseDto(productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product Not Found")));
+        return productMapper.toResponseDto(productRepository.
+                findById(id).orElseThrow(() -> new EntityNotFoundException("Product Not Found")));
     }
 
     @Override
@@ -38,7 +39,6 @@ public class ProductServiceImpl implements ProductService {
 
         existingProduct.setName(productRequestDto.getName());
         existingProduct.setPrice(productRequestDto.getPrice());
-
         Product updatedProduct = productRepository.save(existingProduct);
 
         return productMapper.toResponseDto(updatedProduct);

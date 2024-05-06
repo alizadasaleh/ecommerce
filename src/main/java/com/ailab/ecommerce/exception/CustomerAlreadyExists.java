@@ -8,6 +8,7 @@ import java.net.URI;
 import java.time.Instant;
 
 public class CustomerAlreadyExists extends ErrorResponseException {
+
     public CustomerAlreadyExists(String message){
         super(HttpStatus.BAD_REQUEST, asProblemDetail(message), null);
 
@@ -21,4 +22,6 @@ public class CustomerAlreadyExists extends ErrorResponseException {
         problemDetail.setProperty("errorCategory", "Generic");
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;
-    }}
+    }
+
+}

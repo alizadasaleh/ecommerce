@@ -65,11 +65,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderResponseDto> getOrdersByCustomerId(Long customerId) {
-        customerRepository.findById(customerId)
+      Customer customer=  customerRepository.findById(customerId)
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found to create order"));
-
-        List<Order> orders = orderRepository.findAllByCustomerId(customerId);
-
+        List<Order> orders = customer.getOrders();
         return orders.stream()
                 .map(orderMapper::toResponseDto)
                 .collect(Collectors.toList());
@@ -79,7 +77,6 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderResponseDto> getOrdersByProductId(Long productId) {
         productRepository.findById(productId).orElseThrow(() -> new EntityNotFoundException("Product not found to create order"));
         List<Order> orders = orderRepository.findAllByProductsId(productId);
-
         return orders.stream()
                 .map(orderMapper::toResponseDto)
                 .collect(Collectors.toList());
