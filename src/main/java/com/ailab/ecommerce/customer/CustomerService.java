@@ -7,10 +7,10 @@ public interface CustomerService {
 
     CustomerResponseDto getCustomerById(long id);
 
-    CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto);
+    void createCustomer(CustomerRequestDto customerRequestDto);
 
     void deleteCustomer(long id);
 
-    CustomerResponseDto updateCustomer(Long id, CustomerRequestDto customerRequestDto);
+    void updateCustomer(Long id, CustomerRequestDto customerRequestDto);
 
 }

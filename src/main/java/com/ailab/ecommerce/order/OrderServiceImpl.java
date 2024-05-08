@@ -1,10 +1,11 @@
 package com.ailab.ecommerce.order;
 
 import com.ailab.ecommerce.customer.Customer;
-import com.ailab.ecommerce.customer.CustomerRepository;
+import com.ailab.ecommerce.repository.CustomerRepository;
 import com.ailab.ecommerce.exception.EntityNotFoundException;
 import com.ailab.ecommerce.product.Product;
-import com.ailab.ecommerce.product.ProductRepository;
+import com.ailab.ecommerce.repository.OrderRepository;
+import com.ailab.ecommerce.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderResponseDto createOrder(OrderRequestCreateDto orderRequestCreateDto) {
+    public void createOrder(OrderRequestCreateDto orderRequestCreateDto) {
         Customer customer=customerRepository.findById(orderRequestCreateDto.getCustomerId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found to create order"));
         Order order = new Order();
@@ -37,8 +38,7 @@ public class OrderServiceImpl implements OrderService {
             throw new EntityNotFoundException("Product not found to create order");
         }
         order.setProducts(products);
-        order = orderRepository.save(order);
-        return orderMapper.toResponseDto(order);
+        orderRepository.save(order);
     }
 
 
@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderResponseDto> getOrdersByCustomerId(Long customerId) {
       Customer customer=  customerRepository.findById(customerId)
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found to create order"));
-        List<Order> orders = customer.getOrders();
+        List<Order> orders = orderRepository.findAllByCustomerId(customerId);
         return orders.stream()
                 .map(orderMapper::toResponseDto)
                 .collect(Collectors.toList());
@@ -84,9 +84,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderResponseDto updateOrder(Long id, OrderRequestCreateDto orderRequestCreateDto) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Order.class,id));
-        Customer customer=customerRepository.findById(orderRequestCreateDto.getCustomerId())
+    public void updateOrder(Long id, OrderRequestCreateDto orderRequestCreateDto) {
+        Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Order.class, id));
+        Customer customer = customerRepository.findById(orderRequestCreateDto.getCustomerId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found to create order"));
 
         order.setCustomer(customer);
@@ -95,8 +95,8 @@ public class OrderServiceImpl implements OrderService {
             throw new EntityNotFoundException("Product not found to create order");
         }
         order.setProducts(products);
-        order = orderRepository.save(order);
-        return orderMapper.toResponseDto(order);
+        orderRepository.update(order);
     }
+
 
 }

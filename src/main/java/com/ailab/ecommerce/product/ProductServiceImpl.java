@@ -1,6 +1,7 @@
 package com.ailab.ecommerce.product;
 
 import com.ailab.ecommerce.exception.EntityNotFoundException;
+import com.ailab.ecommerce.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -33,21 +34,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductResponseDto updateProduct(Long productId, ProductRequestDto productRequestDto){
+    public void updateProduct(Long productId, ProductRequestDto productRequestDto){
         Product existingProduct = productRepository.findById(productId)
                 .orElseThrow(() -> new EntityNotFoundException("Product not found"));
 
         existingProduct.setName(productRequestDto.getName());
         existingProduct.setPrice(productRequestDto.getPrice());
-        Product updatedProduct = productRepository.save(existingProduct);
-
-        return productMapper.toResponseDto(updatedProduct);
+        productRepository.update(existingProduct);
     }
 
     @Override
     @Transactional
-    public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
-        return productMapper.toResponseDto(productRepository.save(productMapper.toEntity(productRequestDto)));
+    public void createProduct(ProductRequestDto productRequestDto) {
+        productRepository.save(productMapper.toEntity(productRequestDto));
     }
 
     @Override

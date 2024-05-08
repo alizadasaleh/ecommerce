@@ -21,7 +21,7 @@ public class Product extends BaseEntity<Long>{
     @Column(nullable = false)
     private Double price;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
     private List<Order> orders;
 
 }

@@ -2,6 +2,7 @@ package com.ailab.ecommerce.customer;
 
 import com.ailab.ecommerce.exception.CustomerAlreadyExists;
 import com.ailab.ecommerce.exception.EntityNotFoundException;
+import com.ailab.ecommerce.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -35,12 +36,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto) {
+    public void createCustomer(CustomerRequestDto customerRequestDto) {
         Optional<Customer> existingCustomer = customerRepository.findByEmail(customerRequestDto.getEmail());
         if (existingCustomer.isPresent()) {
             throw new CustomerAlreadyExists("Customer with the given email already exists.");
         }
-        return customerMapper.toResponseDto(customerRepository.save(customerMapper.toEntity(customerRequestDto)));
+        customerRepository.save(customerMapper.toEntity(customerRequestDto));
     }
 
     @Override
@@ -51,12 +52,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponseDto updateCustomer(Long id, CustomerRequestDto customerRequestDto) {
+    public void updateCustomer(Long id, CustomerRequestDto customerRequestDto) {
         var existingCustomer = customerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Customer not found with the given ID."));
         existingCustomer.setEmail(customerRequestDto.getEmail());
         existingCustomer.setName(customerRequestDto.getName());
         existingCustomer.setAddress(customerRequestDto.getAddress());
-        return customerMapper.toResponseDto(customerRepository.save(existingCustomer));
+        customerRepository.update(existingCustomer);
 
     }
 }

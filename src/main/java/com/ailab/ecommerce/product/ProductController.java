@@ -26,13 +26,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponseDto createProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
-        return productService.createProduct(productRequestDto);
+    public void createProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
+        productService.createProduct(productRequestDto);
     }
 
     @PutMapping("/{id}")
-    public ProductResponseDto updateProduct(@PathVariable Long id, @RequestBody @Valid ProductRequestDto productRequestDto) {
-        return productService.updateProduct(id, productRequestDto);
+    public void updateProduct(@PathVariable Long id, @RequestBody @Valid ProductRequestDto productRequestDto) {
+        productService.updateProduct(id, productRequestDto);
     }
 
     @DeleteMapping("/{id}")
