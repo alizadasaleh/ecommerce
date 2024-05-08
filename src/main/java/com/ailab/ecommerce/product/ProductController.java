@@ -8,6 +8,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -25,15 +26,18 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponseDto createProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
-        return productService.createProduct(productRequestDto);
+    public void createProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
+        productService.createProduct(productRequestDto);
     }
+
     @PutMapping("/{id}")
-    public ProductResponseDto updateProduct(@PathVariable("id") Long id,@RequestBody @Valid ProductRequestDto productRequestDto) {
-        return productService.updateProduct(id, productRequestDto);
+    public void updateProduct(@PathVariable Long id, @RequestBody @Valid ProductRequestDto productRequestDto) {
+        productService.updateProduct(id, productRequestDto);
     }
+
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") Long id) {
+    public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
     }
+
 }

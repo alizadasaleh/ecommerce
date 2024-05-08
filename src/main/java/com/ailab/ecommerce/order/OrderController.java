@@ -27,8 +27,8 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody @Valid OrderRequestCreateDto orderRequestCreateDto){
-        return ResponseEntity.ok(orderService.createOrder(orderRequestCreateDto));
+    public void createOrder(@RequestBody @Valid OrderRequestCreateDto orderRequestCreateDto){
+        orderService.createOrder(orderRequestCreateDto);
     }
 
     @GetMapping("/customers/{customerId}/orders")
@@ -42,8 +42,8 @@ public class OrderController {
     }
 
     @PutMapping("/orders/{id}")
-    public ResponseEntity<OrderResponseDto> updateOrder(@PathVariable("id") Long id,@RequestBody @Valid OrderRequestCreateDto orderRequestCreateDto){
-        return ResponseEntity.ok(orderService.updateOrder(id, orderRequestCreateDto));
+    public void updateOrder(@PathVariable("id") Long id,@RequestBody @Valid OrderRequestCreateDto orderRequestCreateDto){
+        orderService.updateOrder(id, orderRequestCreateDto);
     }
     @GetMapping("/products/{productId}/orders")
     public ResponseEntity<List<OrderResponseDto>> getOrderByProductId(@PathVariable ("productId") Long productId){

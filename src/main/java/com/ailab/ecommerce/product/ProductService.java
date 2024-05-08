@@ -10,9 +10,9 @@ public interface ProductService {
     ProductResponseDto getProductById(Long id);
 
     @Transactional
-    ProductResponseDto updateProduct(Long productId, ProductRequestDto productRequestDto);
+    void updateProduct(Long productId, ProductRequestDto productRequestDto);
 
-    ProductResponseDto createProduct(ProductRequestDto productRequestDto);
+    void createProduct(ProductRequestDto productRequestDto);
 
     void deleteProduct(Long id);
 
