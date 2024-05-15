@@ -23,9 +23,10 @@
         DELETE FROM product WHERE id = #{id}
     </delete>
 
-    <insert id="save" parameterType="com.ailab.ecommerce.product.Product">
+    <insert id="save" parameterType="com.ailab.ecommerce.product.Product" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO product (name, price) VALUES (#{name}, #{price})
     </insert>
+
 
     <update id="update" parameterType="com.ailab.ecommerce.product.Product">
         UPDATE product SET name = #{name}, price = #{price} WHERE id = #{id}

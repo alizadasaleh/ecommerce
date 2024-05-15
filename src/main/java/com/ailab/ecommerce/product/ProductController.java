@@ -40,4 +40,14 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
+    @GetMapping("/search/{name}")
+    public List<ProductResponseDto> searchProducts(@PathVariable String name) {
+        return productService.searchProducts(name);
+    }
+
+    @GetMapping("/fuzzy-search/{name}")
+    public List<ProductResponseDto> fuzzySearchProducts(@PathVariable String name) {
+        return productService.fuzzySearchProducts(name);
+    }
+
 }
