@@ -1,6 +1,5 @@
 package com.ailab.ecommerce.product;
 
-import com.ailab.ecommerce.common.BaseEntity;
 import com.ailab.ecommerce.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
