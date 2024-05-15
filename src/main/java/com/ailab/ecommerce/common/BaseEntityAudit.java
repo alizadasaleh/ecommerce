@@ -12,8 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class BaseEntityAudit extends BaseEntity implements Serializable {
-
+public abstract class BaseEntityAudit implements Serializable {
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

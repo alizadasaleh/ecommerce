@@ -16,4 +16,7 @@ public interface ProductService {
 
     void deleteProduct(Long id);
 
+    List<ProductResponseDto> searchProducts(String name);
+
+    List<ProductResponseDto> fuzzySearchProducts(String name);
 }
