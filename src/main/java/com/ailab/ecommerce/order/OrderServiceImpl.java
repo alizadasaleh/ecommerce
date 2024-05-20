@@ -6,8 +6,8 @@ import com.ailab.ecommerce.exception.EntityNotFoundException;
 import com.ailab.ecommerce.product.Product;
 import com.ailab.ecommerce.repository.OrderRepository;
 import com.ailab.ecommerce.repository.ProductRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;

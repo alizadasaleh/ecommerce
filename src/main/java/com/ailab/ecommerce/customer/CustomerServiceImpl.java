@@ -3,8 +3,8 @@ package com.ailab.ecommerce.customer;
 import com.ailab.ecommerce.exception.CustomerAlreadyExists;
 import com.ailab.ecommerce.exception.EntityNotFoundException;
 import com.ailab.ecommerce.repository.CustomerRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;

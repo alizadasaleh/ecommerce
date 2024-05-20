@@ -15,4 +15,5 @@ public interface ProductElasticRepository  extends ElasticsearchRepository<Produ
 
     @Query("{\"match\": {\"name\": {\"query\": \"?0\", \"fuzziness\": \"AUTO\"}}}")
     List<Product> findByNameWithFuzziness(String name);
+
 }
