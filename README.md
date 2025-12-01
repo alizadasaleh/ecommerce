@@ -1,6 +1,5 @@
 # Ecommerce
 
-![Build Status](https://github.com/alizadasaleh/ecommerce/actions/workflows/ci.yml/badge.svg)
 ![Maven Central](https://img.shields.io/badge/build-gradle-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
