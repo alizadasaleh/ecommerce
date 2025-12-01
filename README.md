@@ -139,12 +139,8 @@ Check `src/main/resources` and environment variables for database and Elasticsea
 - **Contributing**: See `CONTRIBUTING.md` for guidelines (add one if missing).
 - **Maintainers**: Repository owner `alizadasaleh` (see Git history for committers).
 
-If you need help reproducing a problem locally, include the `./gradlew build` output and any logs from the app or `docker-compose` services.
-
 ## License
 
 See the `LICENSE` file in this repository for license details.
 
 ---
-
-If you'd like, I can also add a minimal `CONTRIBUTING.md`, a GitHub Actions CI workflow, or example Postgres/Elasticsearch seed data. Would you like me to add any of those now?
